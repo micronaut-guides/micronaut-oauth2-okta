@@ -1,0 +1,28 @@
+Create a controller to handle the requests to `/`. You are going to display the email of the authenticated person if any. Annotate the controller endpoint with `@View` since we are going to use a Thymeleaf template.
+
+[source,java]
+.src/main/java/example/micronaut/HomeController.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/HomeController.java[]
+----
+
+<1> The class is defined as a controller with the http://docs.micronaut.io/snapshot/api/io/micronaut/http/annotation/Controller.html[@Controller] annotation mapped to the path `/`.
+<2> Annotate with `io.micronaut.security.Secured` to configure secured access. The `SecurityRule.IS_ANONYMOUS` expression will allow access without authentication.
+<3> Use https://docs.micronaut.io/latest/api/io/micronaut/views/View.html[View] annotation to specify which template would you like to render the response against.
+<4> The http://docs.micronaut.io/snapshot/api/io/micronaut/http/annotation/Get.html[@Get] annotation is used to map the `index` method to GET `/` requests.
+
+Create a thymeleaf template:
+
+[source,html]
+.src/main/resources/views/home.html
+----
+include::{sourceDir}/src/main/resources/views/home.html[]
+----
+
+Please, note that we don't even have an `/enter` endpoint, thus if you click it, you are accessing an unauthorized url and a redirection to the authentication endpoint of the Okta Authorization server is triggered.
+
+Also, note that we return an empty model in the controller. However, we are accessing `security` and `endsessionurl` in the thymeleaf template.
+
+- The https://micronaut-projects.github.io/micronaut-oauth2/snapshot/api/io/micronaut/security/oauth2/openid/endpoints/endsession/EndsessionViewModelProcessor.html[EndsessionViewModelProcessor] injects into the model the `endsessionurl` of the authorization server correctly configured. See https://micronaut-projects.github.io/micronaut-oauth2/snapshot/guide/index.html#logouturl[Logout URL documentation].
+
+- The https://docs.micronaut.io/snapshot/api/io/micronaut/views/model/security/SecurityViewModelProcessor.html[SecurityViewModelProcessor] injects into the model a `security` map with the authenticated user.  See https://docs.micronaut.io/snapshot/guide/index.html#accessSecurityInViews[User in a view] documentation.

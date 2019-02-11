@@ -1,0 +1,48 @@
+Micronaut seamlessly configures the request towards the https://micronaut-projects.github.io/micronaut-oauth2/snapshot/guide/index.html#authorization[authorization endpoint] of the Authorization server.
+
+However, we need to provide an authentication state parameter:
+
+____
+Opaque value used to maintain state between the request and the callback. Typically, Cross-Site Request Forgery (CSRF, XSRF) mitigation is done by cryptographically binding the value of this parameter with a browser cookie.
+____
+
+To do that, we need to create a https://micronaut-projects.github.io/micronaut-oauth2/snapshot/api/io/micronaut/security/oauth2/openid/endpoints/authorization/StateProvider.html[State Provider] bean.
+
+
+[source,java]
+.src/main/java/example/micronaut/DefaultStateProvider.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/DefaultStateProvider.java[]
+----
+
+<1> To register a Singleton in Micronaut’s application context annotate your class with `javax.inject.Singleton`.
+
+The previous implementation retrieves the state from a cookie. To be sure that such cookie exits,
+create a https://docs.micronaut.io/latest/guide/index.html#filters[Http Filter] which creates a cookie with a random state value if such cookie does not exist.
+
+https://docs.micronaut.io/latest/guide/index.html#filters[Http Filter]:
+____
+The Micronaut HTTP server supports the ability to apply filters to request/response processing in a similar, but reactive, way to Servlet filters in traditional Java applications.
+____
+
+[source,java]
+.src/main/java/example/micronaut/StateFilter.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/StateFilter.java[]
+----
+
+<1> The https://docs.micronaut.io/snapshot/api/io/micronaut/http/annotation/Filter.html[Filter] annotation is used to define the URI patterns the filter matches
+<2> A filter that is only executed once per request.
+<3> Ensure filter is triggered after `SecurityFilter`.
+<4> If the user is authenticated and the cookie exists, remove the Auth state parameter cookie.
+<5> if the user is not authenticated, create a cookie for the Auth state parameter.
+
+To validate the state received in the response, provide an implementation of https://micronaut-projects.github.io/micronaut-oauth2/snapshot/api/io/micronaut/security/oauth2/openid/endpoints/authorization/StateValidator.html[StateValidator bean].
+
+[source,java]
+.src/main/java/example/micronaut/DefaultStateValidator.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/DefaultStateValidator.java[]
+----
+
+<1> To register a Singleton in Micronaut’s application context annotate your class with `javax.inject.Singleton`.

@@ -1,0 +1,37 @@
+Micronaut allows the customization of the response that is sent when a request is not authorized to access a resource, or if it is not authenticated and the resource requires authentication.
+
+If both beans (https://docs.micronaut.io/snapshot/api/io/micronaut/security/handlers/UnauthorizedRejectionUriProvider.html[UnauthorizedRejectionUriProvider], https://docs.micronaut.io/snapshot/api/io/micronaut/security/handlers/ForbiddenRejectionUriProvider.html[ForbiddenRejectionUriProvider]) exists, then https://docs.micronaut.io/snapshot/api/io/micronaut/security/handlers/RedirectRejectionHandler.html[RedirectRejectionHandler], a generic redirect handler, is registered as a https://docs.micronaut.io/snapshot/api/io/micronaut/security/handlers/RejectionHandler.html[RejectionHandler].
+
+See https://docs.micronaut.io/snapshot/guide/index.html#rejection[rejection handling] documentation.
+
+The Oauth2 module registers an `UnauthorizedRejectionUriProvider`, we need create a bean of type `ForbiddenRejectionUriProvider`:
+
+[source,java]
+.src/main/java/example/micronaut/DefaultForbiddenRejectionUriProvider.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/DefaultForbiddenRejectionUriProvider.java[]
+----
+
+<1> To register a Singleton in Micronaut’s application context annotate your class with `javax.inject.Singleton`.
+<2> Implement `ForbiddenRejectionUriProvider` to create a bean of such type.
+
+Create a controller to handle `/denied` endpoint and annotate its endpoint with `@View`.
+
+[source,java]
+.src/main/java/example/micronaut/DeniedController.java
+----
+include::{sourceDir}/src/main/java/example/micronaut/DeniedController.java[]
+----
+
+<1> The class is defined as a controller with the http://docs.micronaut.io/snapshot/api/io/micronaut/http/annotation/Controller.html[@Controller] annotation mapped to the path `/`.
+<2> Annotate with `io.micronaut.security.Secured` to configure secured access. The `SecurityRule.IS_ANONYMOUS` expression will allow access without authentication.
+<3> Use https://docs.micronaut.io/latest/api/io/micronaut/views/View.html[View] annotation to specify which template would you like to render the response against.
+<4> The http://docs.micronaut.io/snapshot/api/io/micronaut/http/annotation/Get.html[@Get] annotation is used to map the `index` method to GET `/denied` requests.
+
+Create a thymeleaf template:
+
+[source,html]
+.src/main/resources/views/denied.html
+----
+include::{sourceDir}/src/main/resources/views/denied.html[]
+----

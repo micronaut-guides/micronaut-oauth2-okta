@@ -1,0 +1,3 @@
+include::{commondir}/common-runapp.adoc[]
+
+image::video.gif[]

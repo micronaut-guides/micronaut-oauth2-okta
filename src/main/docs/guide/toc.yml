@@ -1,0 +1,16 @@
+gettingStarted: 
+  title: Getting Started
+  requirements: What you will need
+  solution: Solution
+usingsnapshot: Using Snapshots
+writingTheApp:
+  title: Writing the App
+  views: Views
+  denied: Denied
+  oauth2: Oauth 2
+  state: Auth State Parameter
+  home: Home
+runningTheApp:
+  title: Running the Application
+learnmore:
+  title: Learn More

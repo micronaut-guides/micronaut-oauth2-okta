@@ -1,0 +1,25 @@
+Although Micronaut is primarily designed around message encoding / decoding, there are occasions where it is convenient to render a view on the server side.
+
+To use the view rendering features, add the following dependency on your classpath. For example, in `build.gradle`
+
+[source,java]
+.build.gradle
+----
+dependencies {
+  ...
+  ..
+include::{sourceDir}/build.gradle[tag=views]
+}
+----
+
+To use https://www.thymeleaf.org/[Thymeleaf] Java template engine, add the thymeleaf dependency:
+
+[source,java]
+.build.gradle
+----
+dependencies {
+  ...
+  ..
+include::{sourceDir}/build.gradle[tag=thymeleaf]
+}
+----

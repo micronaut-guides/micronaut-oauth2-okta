@@ -1,0 +1,28 @@
+micronaut:
+    application:
+        name: examples
+    server:
+        port: 8080
+        cors:
+            enabled: true
+#tag::oauth2[]
+    security:
+        enabled: true # <1>
+        oauth2:
+            client-secret: '${OAUTH_CLIENT_SECRET}' # <2>
+            client-id: '${OAUTH_CLIENT_ID}' # <3>
+            openid-configuration: '${OKTA_DOMAIN}/oauth2/${OKTA_AUTHSERVERID}/.well-known/openid-configuration' # <4>
+            authorization:
+                scopes: # <5>
+                    - 'openid'
+                    - 'email'
+        token:
+            jwt:
+                enabled: true # <6>
+                cookie:
+                   enabled: true # <7>
+        endpoints:
+            logout:
+                enabled: true # <8>
+                get-allowed: true # <9>
+#end::oauth2[]
