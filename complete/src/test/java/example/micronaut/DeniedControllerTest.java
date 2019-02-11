@@ -15,12 +15,20 @@ public class DeniedControllerTest {
     private static EmbeddedServer server;
     private static HttpClient client;
 
+    private static boolean shouldIgnore() {
+        return System.getenv("OAUTH_CLIENT_SECRET") == null ||
+                System.getenv("OAUTH_CLIENT_ID") == null ||
+        System.getenv("OKTA_DOMAIN") == null ||
+                System.getenv("OKTA_AUTHSERVERID") == null;
+    }
     @BeforeClass
     public static void setupServer() {
-        server = ApplicationContext.run(EmbeddedServer.class);
-        client = server
-                .getApplicationContext()
-                .createBean(HttpClient.class, server.getURL());
+        if (!shouldIgnore()) {
+            server = ApplicationContext.run(EmbeddedServer.class);
+            client = server
+                    .getApplicationContext()
+                    .createBean(HttpClient.class, server.getURL());
+        }
     }
 
     @AfterClass
@@ -34,11 +42,15 @@ public class DeniedControllerTest {
     }
 
     @Test
-    public void testDenied() throws Exception {
-        HttpRequest request = HttpRequest.GET("/denied");
-        String body = client.toBlocking().retrieve(request);
-        assertNotNull(body);
-        assertTrue(body.contains("Denied"));
-        assertTrue(body.contains("Sorry, you're not authorized to view this page"));
+    public void testDenied() {
+        if (shouldIgnore()) {
+            assertTrue(true);
+        } else {
+            HttpRequest request = HttpRequest.GET("/denied");
+            String body = client.toBlocking().retrieve(request);
+            assertNotNull(body);
+            assertTrue(body.contains("Denied"));
+            assertTrue(body.contains("Sorry, you're not authorized to view this page"));
+        }
     }
 }
