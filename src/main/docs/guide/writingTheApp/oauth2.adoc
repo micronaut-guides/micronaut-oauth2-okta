@@ -43,7 +43,7 @@ include::{sourceDir}/src/main/resources/application.yml[tag=oauth2]
 <1> Enable security
 <2> Client Secret. See previous screenshot.
 <3> Client ID. See previous screenshot.
-<4> `well-know/openid-configuration` endpoint url. Allows micronaut to discover the configuration of the Open ID Configuration server.
+<4> `issuer` url. It allows micronaut to discover the configuration of the OpenID Connect server.
 <5> By default `openid` scope isued. You can supply multiple scopes by providing a list.
 <6> ID Token is a JWT token. We need to enable https://docs.micronaut.io/latest/guide/index.html#jwt[Micronaut’s JWT support] to validate it.
 <7> Once validated, we are going to save the ID Token in a Cookie. To read in subsequent requests, enable https://docs.micronaut.io/latest/guide/index.html#cookieToken[Cookie Token Reader].
