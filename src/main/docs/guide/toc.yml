@@ -7,7 +7,7 @@ writingTheApp:
   title: Writing the App
   views: Views
   denied: Denied
-  oauth2: Oauth 2
+  oauth2: OAuth 2.0
   state: Auth State Parameter
   home: Home
 runningTheApp:
