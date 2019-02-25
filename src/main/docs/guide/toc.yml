@@ -6,7 +6,6 @@ usingsnapshot: Using Snapshots
 writingTheApp:
   title: Writing the App
   views: Views
-  denied: Denied
   oauth2: OAuth 2.0
   state: Auth State Parameter
   home: Home
