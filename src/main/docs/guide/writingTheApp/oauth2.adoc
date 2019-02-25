@@ -1,4 +1,4 @@
-Sign up in https://developer.okta.com[Okta developer portal] and create a Web app with the following characteristics:
+Sign up at https://developer.okta.com[developer.okta.com] and create a Web app with the following characteristics:
 
 - Check `Authorization Code` grant type.
 - Add `http://localhost:8080/authcode/cb` as a login redirect URIs.
