@@ -11,12 +11,9 @@
 
 <nav>
     <ul>
-        <li th:unless="${security}"><a href="/enter">Enter</a></li>
-        <li th:if="${security && endsessionurl}"><a th:href="${endsessionurl}">Logout</a></li>
-
+        <li th:unless="${security}"><a href="/oauth/login/okta">Enter</a></li>
+        <li th:if="${security}"><a href="/oauth/logout">Logout</a></li>
     </ul>
 </nav>
-
-
 </body>
 </html>

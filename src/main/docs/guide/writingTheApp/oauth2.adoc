@@ -1,7 +1,7 @@
 Sign up at https://developer.okta.com[developer.okta.com] and create a Web app with the following characteristics:
 
 - Check `Authorization Code` grant type.
-- Add `http://localhost:8080/authcode/cb` as a login redirect URIs.
+- Add `http://localhost:8080/oauth/callback/okta` as a login redirect URIs.
 - Add `http://localhost:8080/logout` as a Logout redirect URIs.
 - Annotate the Client ID and Secret.
 
@@ -9,6 +9,11 @@ image::okta-app.png[]
 
 To use OAuth 2.0 integration, add the next dependency:
 
+[source,java]
+.gradle.properties
+----
+include::{sourceDir}/gradle.properties[]
+----
 [source,java]
 .build.gradle
 ----
@@ -41,10 +46,10 @@ include::{sourceDir}/src/main/resources/application.yml[tag=oauth2]
 ----
 
 <1> Enable security
-<2> Client Secret. See previous screenshot.
-<3> Client ID. See previous screenshot.
-<4> `issuer` url. It allows micronaut to discover the configuration of the OpenID Connect server.
-<5> By default `openid` scope isued. You can supply multiple scopes by providing a list.
+<2> The provider identifier should match the last part of the url you entered as a redirect url `/oauth/callback/okta` 
+<3> Client Secret. See previous screenshot.
+<4> Client ID. See previous screenshot.
+<5> `issuer` url. It allows micronaut to discover the configuration of the OpenID Connect server.
 <6> ID Token is a JWT token. We need to enable https://docs.micronaut.io/latest/guide/index.html#jwt[Micronaut’s JWT support] to validate it.
 <7> Once validated, we are going to save the ID Token in a Cookie. To read in subsequent requests, enable https://docs.micronaut.io/latest/guide/index.html#cookieToken[Cookie Token Reader].
 <8> Enable https://docs.micronaut.io/snapshot/guide/index.html#logout[Logout Controller]

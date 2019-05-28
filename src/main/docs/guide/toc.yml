@@ -7,7 +7,6 @@ writingTheApp:
   title: Writing the App
   views: Views
   oauth2: OAuth 2.0
-  state: Auth State Parameter
   home: Home
 runningTheApp:
   title: Running the Application
