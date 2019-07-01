@@ -21,6 +21,10 @@ micronaut:
                 enabled: true # <6>
                 cookie:
                    enabled: true # <7>
+                signatures:
+                    secret:
+                        generator: 
+                            secret: pleaseChangeThisSecretForANewOne
         endpoints:
             logout:
                 enabled: true # <8>
