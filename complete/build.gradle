@@ -46,7 +46,7 @@ dependencies {
     compile "io.micronaut:micronaut-security-jwt"
     //end::jwt[]
     //tag::oauth2[]
-    compile "io.micronaut.configuration:micronaut-security-oauth2:$micronuatOauthVersion"
+    compile "io.micronaut.configuration:micronaut-security-oauth2:$micronautOauthVersion"
     //end::oauth2[]
 }
 
