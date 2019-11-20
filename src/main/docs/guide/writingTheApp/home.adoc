@@ -21,4 +21,6 @@ include::{sourceDir}/src/main/resources/views/home.html[]
 
 Also, note that we return an empty model in the controller. However, we are accessing `security` in the thymeleaf template.
 
-- The https://docs.micronaut.io/snapshot/api/io/micronaut/views/model/security/SecurityViewModelProcessor.html[SecurityViewModelProcessor] injects into the model a `security` map with the authenticated user.  See https://docs.micronaut.io/snapshot/guide/index.html#accessSecurityInViews[User in a view] documentation.
+- The https://docs.micronaut.io/snapshot/api/io/micronaut/views/model/security/SecurityViewModelProcessor.html[SecurityViewModelProcessor]
+injects into the model a `security` map with the authenticated user.  See
+https://micronaut-projects.github.io/micronaut-views/latest/guide/index.html#views-security[User in a view] documentation.
