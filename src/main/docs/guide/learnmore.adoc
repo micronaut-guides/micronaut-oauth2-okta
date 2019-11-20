@@ -1,1 +1,1 @@
-Read https://micronaut-projects.github.io/micronaut-security/snapshot/guide/#oauth[Micronaut OAuth 2.0 documentation] to learn more.
+Read https://micronaut-projects.github.io/micronaut-security/latest/guide/#oauth[Micronaut OAuth 2.0 documentation] to learn more.
