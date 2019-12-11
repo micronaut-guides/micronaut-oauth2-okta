@@ -11,3 +11,5 @@ runningTheApp:
   title: Running the Application
 learnmore:
   title: Learn More
+help:
+  title: Help with Micronaut
