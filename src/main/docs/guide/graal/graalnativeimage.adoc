@@ -1,0 +1,5 @@
+include::{commondir}/common-graal-install.adoc[]
+
+include::{commondir}/common-graal-nativeimage.adoc[]
+
+You can navigate to localhost:8080 and login in with your Okta credentials.
