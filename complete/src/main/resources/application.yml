@@ -11,7 +11,7 @@ micronaut:
     oauth2:
       enabled: true
       clients:
-        okta: # <2>
+        cognito: # <2>
           client-secret: '${OAUTH_CLIENT_SECRET}' # <3>
           client-id: '${OAUTH_CLIENT_ID}' # <4>
           openid:
