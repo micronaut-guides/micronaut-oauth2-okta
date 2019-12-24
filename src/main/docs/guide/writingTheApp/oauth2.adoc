@@ -1,7 +1,7 @@
 Sign up at https://developer.okta.com[developer.okta.com] and create a Web app with the following characteristics:
 
 - Check `Authorization Code` grant type.
-- Add `http://localhost:8080/oauth/callback/okta` as a login redirect URIs.
+- Add `http://localhost:8080/oauth/callback/cognito` as a login redirect URIs.
 - Add `http://localhost:8080/logout` as a Logout redirect URIs.
 - Annotate the Client ID and Secret.
 
@@ -47,7 +47,7 @@ include::{sourceDir}/src/main/resources/application.yml[tag=oauth2]
 ----
 
 <1> Enable security
-<2> The provider identifier should match the last part of the url you entered as a redirect url `/oauth/callback/okta` 
+<2> The provider identifier should match the last part of the url you entered as a redirect url `/oauth/callback/cognito`
 <3> Client Secret. See previous screenshot.
 <4> Client ID. See previous screenshot.
 <5> `issuer` url. It allows micronaut to discover the configuration of the OpenID Connect server.
