@@ -1,38 +1,11 @@
-To provide authentication, sign in to your https://aws.amazon.com[AWS] account and go to https://aws.amazon.com/cognito[AWS Cognito].
+Sign up at https://developer.okta.com[developer.okta.com] and create a Web app with the following characteristics:
 
-____
-With the Amazon Cognito SDK, you just write a few lines of code to enable your users to sign-up and sign-in to your mobile and web apps.
+- Check `Authorization Code` grant type.
+- Add `http://localhost:8080/oauth/callback/cognito` as a login redirect URIs.
+- Add `http://localhost:8080/logout` as a Logout redirect URIs.
+- Annotate the Client ID and Secret.
 
-**Standards-based authentication**
-
-Amazon Cognito uses common identity management standards including OpenID Connect, OAuth 2.0, and SAML 2.0.
-____
-
-First, create an Amazon Cognito User Pool:
-
-____
-**Amazon Cognito User Pools - A directory for all your users**
-
-You can quickly create your own directory to sign up and sign in users, and to store user profiles using Amazon Cognito User Pools. User Pools provide a user interface you can customize to match your app. User Pools also enable easy integration with social identity providers such as Facebook, Google, and Amazon, and enterprise identity providers such as Microsoft Active Directory through SAML.
-____
-
-image::aws-cognito-1.png[]
-
-image::aws-cognito-2.png[]
-
-Amazon Cognito Pools are regional. Thus, annotate the region you are using.
-
-While you setup the Amazon Cognito User Pool, you will need to save the pool id:
-
-image::aws-cognito-3.png[]
-
-Configure the appropriate callback, make sure you allow `Authorization code grant` OAuth Flow, and also the scopes `openid` and `email` are selected.
-
-image::aws-cognito-5.png[]
-
-Save the client id and client secret:
-
-image::aws-cognito-4.png[]
+image::okta-app.png[]
 
 To use OAuth 2.0 integration, add the next dependency:
 
@@ -77,7 +50,7 @@ include::{sourceDir}/src/main/resources/application.yml[tag=oauth2]
 <2> The provider identifier should match the last part of the url you entered as a redirect url `/oauth/callback/cognito`
 <3> Client Secret. See previous screenshot.
 <4> Client ID. See previous screenshot.
-<5> `issuer` url. It allows micronaut to discover the configuration of the OpenID Connect server. Note: we will use the pool id and region mentioned previously.
+<5> `issuer` url. It allows micronaut to discover the configuration of the OpenID Connect server.
 <6> ID Token is a JWT token. We need to enable https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html#jwt[Micronaut’s JWT support] to validate it.
 <7> Once validated, we are going to save the ID Token in a Cookie. To read in subsequent requests, enable https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html#cookieToken[Cookie Token Reader].
 <8> Enable https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html#logout[Logout Controller]
@@ -89,16 +62,11 @@ The previous configuration uses several placeholders. You will need to setup `OA
 ----
 export OAUTH_CLIENT_ID=XXXXXXXXXX
 export OAUTH_CLIENT_SECRET=YYYYYYYYYY
-export COGNITO_REGION=eu-west-1
-export COGNITO_POOL_ID=eu-west-XXCCCAZZZ
+export OIDC_ISSUER_DOMAIN=https://dev-XXXXX.oktapreview.com
+export OIDC_ISSUER_AUTHSERVERID=default
 ----
 
-Although undocumented in the https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-userpools-server-contract-reference.html[Amazon Cognito User Pools Auth API Reference], Cognito provides an https://openid.net/specs/openid-connect-discovery-1_0.html[openid-configuration endpoint] which is used by Micronaut to configure your app.
-
-[source, bash]
-----
-https://cognito-idp.{region}.amazonaws.com/{userPoolId}/.well-known/openid-configuration
-----
+Check OKTA https://developer.okta.com/docs/api/resources/oidc#well-knownopenid-configuration[.well-known/openid-configuration documentation].
 
 We want to use an **Authorization Code** grant type flow which it is described in the following diagram:
 
