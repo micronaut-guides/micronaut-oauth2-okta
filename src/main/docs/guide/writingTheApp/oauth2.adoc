@@ -46,15 +46,13 @@ micronaut:
 include::{sourceDir}/src/main/resources/application.yml[tag=oauth2]
 ----
 
-<1> Enable security
-<2> The provider identifier should match the last part of the url you entered as a redirect url `/oauth/callback/okta` 
-<3> Client Secret. See previous screenshot.
-<4> Client ID. See previous screenshot.
-<5> `issuer` url. It allows micronaut to discover the configuration of the OpenID Connect server.
-<6> ID Token is a JWT token. We need to enable https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html#jwt[Micronaut’s JWT support] to validate it.
-<7> Once validated, we are going to save the ID Token in a Cookie. To read in subsequent requests, enable https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html#cookieToken[Cookie Token Reader].
-<8> Enable https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html#logout[Logout Controller]
-<9> Accept GET request to the `/logout` endpoint.
+<1> The provider identifier should match the last part of the url you entered as a redirect url `/oauth/callback/okta`
+<2> Client Secret. See previous screenshot.
+<3> Client ID. See previous screenshot.
+<4> `issuer` url. It allows micronaut to discover the configuration of the OpenID Connect server.
+<5> Once validated, we are going to save the ID Token in a Cookie. To read in subsequent requests, enable https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html#cookieToken[Cookie Token Reader].
+<6> Enable https://micronaut-projects.github.io/micronaut-security/latest/guide/index.html#logout[Logout Controller]
+<7> Accept GET request to the `/logout` endpoint.
 
 The previous configuration uses several placeholders. You will need to setup `OAUTH_CLIENT_ID`, `OAUTH_CLIENT_SECRET`, `OIDC_ISSUER_DOMAIN` and `OIDC_ISSUER_AUTHSERVERID` environment variables.
 
