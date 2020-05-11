@@ -36,7 +36,7 @@ dependencies {
     //end::thymeleaf[]
 
     //tag::jwt[]
-    annotationProcessor "io.micronaut:micronaut-security"
+    annotationProcessor "io.micronaut:micronaut-security-annotations:2.0.0.M2"
     implementation "io.micronaut:micronaut-security-jwt"
     //end::jwt[]
 
