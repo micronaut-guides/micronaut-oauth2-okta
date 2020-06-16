@@ -10,11 +10,6 @@ image::okta-app.png[]
 To use OAuth 2.0 integration, add the next dependency:
 
 [source,java]
-.gradle.properties
-----
-include::{sourceDir}/gradle.properties[]
-----
-[source,java]
 .build.gradle
 ----
 dependencies {
